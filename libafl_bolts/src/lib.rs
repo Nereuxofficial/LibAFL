@@ -168,9 +168,13 @@ use log::{Metadata, Record};
 /// out of `libafl_bolts` into `libafl::events::launcher`.
 pub mod launcher {}
 
+// Re-export derive(SerdeAny)
+#[cfg(feature = "libafl_derive")]
+#[allow(unused_imports)]
+#[macro_use]
+extern crate libafl_derive;
 use core::{
     array::TryFromSliceError,
-    cell::{BorrowError, BorrowMutError},
     fmt::{self, Display},
     iter::Iterator,
     num::{ParseIntError, TryFromIntError},
@@ -185,6 +189,7 @@ pub use libafl_derive::SerdeAny;
 use {
     alloc::string::{FromUtf8Error, String},
     core::str::Utf8Error,
+    core::cell::{BorrowError, BorrowMutError},
 };
 
 /// We need fixed names for many parts of this lib.
@@ -443,16 +448,18 @@ impl Display for Error {
     }
 }
 
+#[cfg(feature = "alloc")]
 impl From<BorrowError> for Error {
-    fn from(_: BorrowError) -> Self {
+    fn from(err: BorrowError) -> Self {
         Self::illegal_state(format!(
             "Couldn't borrow from a RefCell as immutable: {err:?}"
         ))
     }
 }
 
+#[cfg(feature = "alloc")]
 impl From<BorrowMutError> for Error {
-    fn from(_: BorrowMutError) -> Self {
+    fn from(err: BorrowMutError) -> Self {
         Self::illegal_state(format!(
             "Couldn't borrow from a RefCell as mutable: {err:?}"
         ))
