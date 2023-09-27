@@ -79,8 +79,11 @@ use libafl::{
     Error,
 };
 use libafl_bolts::AsSlice;
+use mimalloc::MiMalloc;
 
 use crate::options::{LibfuzzerMode, LibfuzzerOptions};
+#[global_allocator]
+static GLOBAL: MiMalloc = MiMalloc;
 
 mod feedbacks;
 mod fuzz;
