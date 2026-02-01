@@ -1,0 +1,68 @@
+version: "3.8"
+
+services:
+  libfuzzer_dav1d:
+    image: libafl-dav1d:latest
+    container_name: libfuzzer_dav1d
+    build:
+      context: ../../..
+      dockerfile: fuzzers/structure_aware/libfuzzer_dav1d/Dockerfile
+    command: ./target/release/libfuzzer_dav1d_concolic
+    working_dir: /fuzzer/fuzzer
+    volumes:
+      # Persist crashes to host
+      - ./crashes:/fuzzer/fuzzer/crashes
+      # Persist corpus to host (optional)
+      - ./corpus_output:/fuzzer/fuzzer/corpus
+      # Persist solutions to host (optional)
+      - ./solutions:/fuzzer/fuzzer/solutions
+    environment:
+      # Fuzzer configuration
+      - RUST_LOG=info
+      - RUST_BACKTRACE=1
+    restart: unless-stopped
+    # Resource limits (optional, adjust as needed)
+    deploy:
+      resources:
+        limits:
+          cpus: "4"
+          memory: 4G
+        reservations:
+          cpus: "2"
+          memory: 2G
+
+  libfuzzer_dav1d_concolic:
+    image: libafl-dav1d:latest
+    container_name: libfuzzer_dav1d_concolic
+    build:
+      context: ../../..
+      dockerfile: fuzzers/structure_aware/libfuzzer_dav1d/Dockerfile
+    command: ./target/release/libfuzzer_dav1d_concolic --concolic
+    working_dir: /fuzzer/fuzzer
+    volumes:
+      # Persist crashes to host
+      - ./crashes_concolic:/fuzzer/fuzzer/crashes
+      # Persist corpus to host (optional)
+      - ./corpus_concolic:/fuzzer/fuzzer/corpus
+      # Persist solutions to host (optional)
+      - ./solutions_concolic:/fuzzer/fuzzer/solutions
+    environment:
+      # Fuzzer configuration
+      - RUST_LOG=info
+      - RUST_BACKTRACE=1
+    restart: unless-stopped
+    # Resource limits (optional, adjust as needed)
+    deploy:
+      resources:
+        limits:
+          cpus: "4"
+          memory: 4G
+        reservations:
+          cpus: "2"
+          memory: 2G
+    profiles:
+      - concolic
+
+networks:
+  default:
+    name: libafl_dav1d_network

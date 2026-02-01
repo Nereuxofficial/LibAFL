@@ -1,0 +1,101 @@
+# Default recipe, runs when you just type `just`
+default: build
+
+# Build both projects
+build: build-runtime build-dav1d build-fuzzer
+
+# Test both projects
+test: test-runtime test-fuzzer test-concolic
+
+# Clean both projects
+clean: clean-runtime clean-fuzzer clean-dav1d
+
+# --- Runtime Project ---
+
+# Build the runtime project
+build-runtime:
+    @echo "Building the runtime project..."
+    @cargo build --manifest-path runtime/Cargo.toml
+
+# Test the runtime project (depends on it being built first)
+test-runtime: build-runtime
+    @echo "Running runtime tests..."
+    @cargo test --manifest-path runtime/Cargo.toml
+
+# Clean the runtime project
+clean-runtime:
+    @echo "Cleaning runtime project..."
+    @cargo clean --manifest-path runtime/Cargo.toml
+
+# --- dav1d Library ---
+
+# Download and build dav1d with instrumentation
+build-dav1d:
+    @echo "Downloading and building dav1d with coverage instrumentation..."
+    @if [ ! -d "dav1d" ]; then \
+        echo "Cloning dav1d repository..."; \
+        git clone --depth 1 https://code.videolan.org/videolan/dav1d.git; \
+    fi
+    @if [ ! -f "dav1d/build/src/libdav1d.a" ]; then \
+        echo "Building dav1d with clang and sanitizer coverage..."; \
+        cd dav1d && \
+        mkdir -p build && \
+        cd build && \
+        CC=clang CFLAGS="-fsanitize-coverage=trace-pc-guard -g" \
+        meson setup --default-library=static --buildtype=debug .. && \
+        ninja; \
+    else \
+        echo "dav1d already built"; \
+    fi
+
+# Clean dav1d build
+clean-dav1d:
+    @echo "Cleaning dav1d..."
+    @rm -rf dav1d
+
+# --- Fuzzer Project ---
+
+# Build the fuzzer project
+build-fuzzer: build-dav1d
+    @echo "Building the fuzzer project..."
+    @cargo build --manifest-path fuzzer/Cargo.toml
+
+# Test the fuzzer project (depends on it being built first)
+test-fuzzer: build-fuzzer
+    @echo "Running fuzzer tests..."
+    @cargo test --manifest-path fuzzer/Cargo.toml
+
+# Clean the fuzzer project
+clean-fuzzer:
+    @echo "Cleaning fuzzer project..."
+    @cargo clean --manifest-path fuzzer/Cargo.toml
+
+# Test the concolic fuzzer
+test-concolic: build-fuzzer
+    @echo "Running concolic fuzzer reproduction..."
+    rm -f concolic_test.log
+    @# Setup environment: copy target_symcc.out, create corpus with seeds
+    cp fuzzer/target_symcc.out .
+    mkdir -p corpus
+    @# Add sample AV1 video files to corpus if available
+    @if [ -d "../../../seeds/av1" ]; then \
+        cp ../../../seeds/av1/*.ivf corpus/ 2>/dev/null || true; \
+    fi
+    @# Run with a timeout and tee output to a log file.
+    @# Ensure LD_LIBRARY_PATH includes runtime for libSymRuntime.so
+    export LD_LIBRARY_PATH=$(pwd)/runtime:$LD_LIBRARY_PATH
+    @# Build with no-restart feature for testing stability
+    @cargo build --manifest-path fuzzer/Cargo.toml
+    @# 30 seconds should be enough to find something
+    timeout -s SIGINT 30s ./fuzzer/target/debug/libfuzzer_dav1d --concolic > concolic_test.log 2>&1 || true
+    @# Check if we found any new paths (corpus > 1)
+    @if grep -E "corpus: +([2-9]|[1-9][0-9]+)" concolic_test.log; then \
+        echo "Concolic fuzzer found new paths (success)!"; \
+        rm -rf concolic_test.log target_symcc.out corpus; \
+    else \
+        echo "No new paths found by concolic fuzzer!"; \
+        grep "corpus:" concolic_test.log | tail -n 1 || true; \
+        exit 1; \
+    fi
+    rm -f concolic_test.log target_symcc.out
+    rm -rf corpus
