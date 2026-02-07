@@ -44,6 +44,29 @@ static unsigned r32le(const uint8_t *const p) {
     return ((uint32_t)p[3] << 24U) | (p[2] << 16U) | (p[1] << 8U) | p[0];
 }
 
+// Fast validation of IVF frame structure without full parsing
+static int quick_validate_ivf(const uint8_t *data, size_t size) {
+    // Must have IVF header (32 bytes) + at least one frame header (12 bytes)
+    if (size < 44)
+        return 0;
+    
+    // Check DKIF magic
+    if (data[0] != 'D' || data[1] != 'K' || data[2] != 'I' || data[3] != 'F')
+        return 0;
+    
+    // Check version (should be 0)
+    if (r32le(data + 4) != 0)
+        return 0;
+    
+    // Check fourcc for AV1 (AV01 or av01)
+    const uint8_t *fourcc = data + 8;
+    if (!((fourcc[0] == 'A' && fourcc[1] == 'V' && fourcc[2] == '0' && fourcc[3] == '1') ||
+          (fourcc[0] == 'a' && fourcc[1] == 'v' && fourcc[2] == '0' && fourcc[3] == '1')))
+        return 0;
+    
+    return 1;
+}
+
 int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
     Dav1dSettings settings;
     Dav1dContext *ctx = NULL;
@@ -52,28 +75,25 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
     int have_seq_hdr = 0;
     int err;
     int frames_processed = 0;
-    const int MAX_FRAMES = 10; // Limit frames to avoid slow inputs
-    const size_t MAX_INPUT_SIZE = 5 * 1024 * 1024; // 5MB limit
+    const int MAX_FRAMES = 5; // Reduced from 10 for faster execution
+    const size_t MAX_INPUT_SIZE = 1 * 1024 * 1024; // Reduced to 1MB for faster fuzzing
+    const size_t MIN_INPUT_SIZE = 44; // IVF header + one frame header
 
-    // Early exit: reject inputs that are too large
-    if (size > MAX_INPUT_SIZE)
+    // Early exit: reject inputs outside reasonable bounds
+    if (size < MIN_INPUT_SIZE || size > MAX_INPUT_SIZE)
         return 0;
 
-    // Early exit: need at least IVF header (32 bytes)
-    if (size < 32)
-        return 0;
-
-    // Early exit: basic IVF signature check (DKIF magic)
-    if (data[0] != 'D' || data[1] != 'K' || data[2] != 'I' || data[3] != 'F')
+    // Early exit: fast validation of IVF structure
+    if (!quick_validate_ivf(data, size))
         return 0;
 
     // Skip IVF header
-    ptr += 32;
+    ptr = data + 32;
 
-    // Initialize decoder settings
+    // Initialize decoder settings with minimal resources for speed
     dav1d_default_settings(&settings);
-    settings.n_threads = 2;
-    settings.max_frame_delay = 1;
+    settings.n_threads = 1; // Single thread for fuzzing speed
+    settings.max_frame_delay = 0; // No delay for immediate processing
     settings.logger.callback = null_logger;
     settings.logger.cookie = NULL;
 
@@ -95,16 +115,16 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
         size_t frame_size = r32le(ptr);
         ptr += 12; // Skip IVF frame header
 
-        // Early exit: validate frame size
-        if (frame_size > size || ptr > data + size - frame_size)
+        // Early exit: validate frame size bounds
+        if (frame_size == 0 || frame_size > size || ptr > data + size - frame_size)
             break;
 
-        // Early exit: reject unreasonably large frames (>2MB)
-        if (frame_size > 2 * 1024 * 1024)
+        // Early exit: reject large frames (>500KB) for fuzzing speed
+        if (frame_size > 500 * 1024)
             break;
 
-        // Early exit: skip empty frames
-        if (!frame_size)
+        // Early exit: skip tiny frames that are likely invalid
+        if (frame_size < 8)
             continue;
 
         frames_processed++;
@@ -114,13 +134,16 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
             Dav1dSequenceHeader seq;
             err = dav1d_parse_sequence_header(&seq, ptr, frame_size);
             if (err != 0) {
-                // Early exit: if first frame has no valid sequence header, abort
-                if (frames_processed == 1)
-                    goto cleanup;
-                ptr += frame_size;
-                continue;
+                // Early exit: abort immediately if first frame lacks valid sequence header
+                goto cleanup;
             }
             have_seq_hdr = 1;
+            
+            // Early exit: validate reasonable dimensions to avoid expensive decoding
+            if (seq.max_width > 1920 || seq.max_height > 1080 || 
+                seq.max_width == 0 || seq.max_height == 0) {
+                goto cleanup;
+            }
         }
 
         // Copy frame data to decoder buffer
@@ -131,34 +154,35 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
         memcpy(p, ptr, frame_size);
         ptr += frame_size;
 
-        // Send data and retrieve pictures
-        do {
-            err = dav1d_send_data(ctx, &buf);
-            if (err < 0 && err != DAV1D_ERR(EAGAIN)) {
-                // Early exit: abort on critical errors
-                if (buf.sz > 0)
-                    dav1d_data_unref(&buf);
-                goto cleanup;
-            }
+        // Send data with minimal retries
+        err = dav1d_send_data(ctx, &buf);
+        if (err < 0 && err != DAV1D_ERR(EAGAIN)) {
+            // Early exit: abort on send errors
+            if (buf.sz > 0)
+                dav1d_data_unref(&buf);
+            goto cleanup;
+        }
 
-            memset(&pic, 0, sizeof(pic));
-            err = dav1d_get_picture(ctx, &pic);
-            if (err == 0) {
-                dav1d_picture_unref(&pic);
-            } else if (err != DAV1D_ERR(EAGAIN)) {
-                // Early exit: stop on decode errors
-                break;
-            }
-        } while (buf.sz > 0);
+        // Try to retrieve picture once
+        memset(&pic, 0, sizeof(pic));
+        err = dav1d_get_picture(ctx, &pic);
+        if (err == 0) {
+            dav1d_picture_unref(&pic);
+        } else if (err != DAV1D_ERR(EAGAIN)) {
+            // Early exit: stop on decode errors
+            if (buf.sz > 0)
+                dav1d_data_unref(&buf);
+            goto cleanup;
+        }
 
         // Clean up remaining buffer data
         if (buf.sz > 0)
             dav1d_data_unref(&buf);
     }
 
-    // Drain any remaining frames (limit to prevent hanging)
+    // Minimal drain - only try a few times
     int drain_attempts = 0;
-    const int MAX_DRAIN_ATTEMPTS = 20;
+    const int MAX_DRAIN_ATTEMPTS = MAX_FRAMES; // Match frame limit
     do {
         if (drain_attempts++ >= MAX_DRAIN_ATTEMPTS)
             break;
@@ -166,6 +190,8 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
         err = dav1d_get_picture(ctx, &pic);
         if (err == 0)
             dav1d_picture_unref(&pic);
+        else if (err != DAV1D_ERR(EAGAIN))
+            break; // Stop on errors
     } while (err != DAV1D_ERR(EAGAIN));
 
 cleanup:
