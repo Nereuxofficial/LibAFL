@@ -1,0 +1,37 @@
+# Build artifacts
+fuzzer/target/
+runtime/target/
+*.profraw
+*.profdata
+
+# Corpus (will be generated in container)
+corpus/
+corpus_minimized/
+
+# Large files
+*.zip
+dec_fuzzer_seed_corpus.zip
+testdata/
+
+# dav1d build (will be built in container)
+dav1d/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.log
+*.tmp
+crashes/
+
+# Git
+.git/
+.gitignore

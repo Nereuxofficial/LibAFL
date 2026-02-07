@@ -61,7 +61,7 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
 
     // Initialize decoder settings
     dav1d_default_settings(&settings);
-    settings.n_threads = 5;
+    settings.n_threads = 2;
     settings.max_frame_delay = 1;
     settings.logger.callback = null_logger;
     settings.logger.cookie = NULL;

@@ -1,1 +1,12 @@
 dav1d
+
+# Docker Compose output directories
+crashes/
+crashes_concolic/
+corpus_output/
+corpus_concolic/
+solutions/
+solutions_concolic/
+
+# Docker Compose environment file
+.env
