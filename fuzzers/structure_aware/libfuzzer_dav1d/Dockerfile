@@ -4,6 +4,9 @@ FROM rust:1.91.0
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
 
+# Set RUSTFLAGS for native CPU optimization
+ENV RUSTFLAGS="-C target-cpu=native"
+
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
