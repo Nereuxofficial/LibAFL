@@ -253,7 +253,14 @@ pub fn main() {
     // 'While the stats are state, they are usually used in the broker - which is likely never restarted
     let monitor = MultiMonitor::new(|s| println!("{s}"));
 
-    let _cores = Cores::from(vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
+    // Configure cores from environment variable or use default of 10
+    let num_cores: usize = std::env::var("LIBAFL_CORES")
+        .ok()
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(10);
+    let _cores = Cores::from((0..num_cores).collect::<Vec<_>>());
+
+    println!("Starting fuzzer with {} cores", num_cores);
 
     #[cfg(feature = "restarting")]
     match Launcher::builder()

@@ -20,16 +20,17 @@ services:
       # Fuzzer configuration
       - RUST_LOG=info
       - RUST_BACKTRACE=1
+      - LIBAFL_CORES=10
     restart: unless-stopped
     # Resource limits (optional, adjust as needed)
     deploy:
       resources:
         limits:
-          cpus: "4"
-          memory: 4G
+          cpus: "10"
+          memory: 8G
         reservations:
-          cpus: "2"
-          memory: 2G
+          cpus: "10"
+          memory: 4G
 
   libfuzzer_dav1d_concolic:
     image: libafl-dav1d:latest
@@ -50,16 +51,17 @@ services:
       # Fuzzer configuration
       - RUST_LOG=info
       - RUST_BACKTRACE=1
+      - LIBAFL_CORES=10
     restart: unless-stopped
     # Resource limits (optional, adjust as needed)
     deploy:
       resources:
         limits:
-          cpus: "4"
-          memory: 4G
+          cpus: "10"
+          memory: 8G
         reservations:
-          cpus: "2"
-          memory: 2G
+          cpus: "10"
+          memory: 4G
     profiles:
       - concolic
 
