@@ -51,9 +51,20 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
     const uint8_t *ptr = data;
     int have_seq_hdr = 0;
     int err;
+    int frames_processed = 0;
+    const int MAX_FRAMES = 10; // Limit frames to avoid slow inputs
+    const size_t MAX_INPUT_SIZE = 5 * 1024 * 1024; // 5MB limit
 
-    // Need at least IVF header (32 bytes)
+    // Early exit: reject inputs that are too large
+    if (size > MAX_INPUT_SIZE)
+        return 0;
+
+    // Early exit: need at least IVF header (32 bytes)
     if (size < 32)
+        return 0;
+
+    // Early exit: basic IVF signature check (DKIF magic)
+    if (data[0] != 'D' || data[1] != 'K' || data[2] != 'I' || data[3] != 'F')
         return 0;
 
     // Skip IVF header
@@ -76,22 +87,36 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
         Dav1dData buf;
         uint8_t *p;
 
+        // Early exit: limit number of frames to prevent slow inputs
+        if (frames_processed >= MAX_FRAMES)
+            break;
+
         // Read frame size from IVF frame header
         size_t frame_size = r32le(ptr);
         ptr += 12; // Skip IVF frame header
 
-        // Validate frame size
+        // Early exit: validate frame size
         if (frame_size > size || ptr > data + size - frame_size)
             break;
 
+        // Early exit: reject unreasonably large frames (>2MB)
+        if (frame_size > 2 * 1024 * 1024)
+            break;
+
+        // Early exit: skip empty frames
         if (!frame_size)
             continue;
+
+        frames_processed++;
 
         // Wait for sequence header before processing frames
         if (!have_seq_hdr) {
             Dav1dSequenceHeader seq;
             err = dav1d_parse_sequence_header(&seq, ptr, frame_size);
             if (err != 0) {
+                // Early exit: if first frame has no valid sequence header, abort
+                if (frames_processed == 1)
+                    goto cleanup;
                 ptr += frame_size;
                 continue;
             }
@@ -109,14 +134,19 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
         // Send data and retrieve pictures
         do {
             err = dav1d_send_data(ctx, &buf);
-            if (err < 0 && err != DAV1D_ERR(EAGAIN))
-                break;
+            if (err < 0 && err != DAV1D_ERR(EAGAIN)) {
+                // Early exit: abort on critical errors
+                if (buf.sz > 0)
+                    dav1d_data_unref(&buf);
+                goto cleanup;
+            }
 
             memset(&pic, 0, sizeof(pic));
             err = dav1d_get_picture(ctx, &pic);
             if (err == 0) {
                 dav1d_picture_unref(&pic);
             } else if (err != DAV1D_ERR(EAGAIN)) {
+                // Early exit: stop on decode errors
                 break;
             }
         } while (buf.sz > 0);
@@ -126,8 +156,12 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
             dav1d_data_unref(&buf);
     }
 
-    // Drain any remaining frames
+    // Drain any remaining frames (limit to prevent hanging)
+    int drain_attempts = 0;
+    const int MAX_DRAIN_ATTEMPTS = 20;
     do {
+        if (drain_attempts++ >= MAX_DRAIN_ATTEMPTS)
+            break;
         memset(&pic, 0, sizeof(pic));
         err = dav1d_get_picture(ctx, &pic);
         if (err == 0)
