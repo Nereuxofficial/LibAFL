@@ -58,7 +58,7 @@ clean-dav1d:
 # Build the fuzzer project
 build-fuzzer: build-dav1d
     @echo "Building the fuzzer project..."
-    @cargo build --manifest-path fuzzer/Cargo.toml
+    @cargo build --release --manifest-path fuzzer/Cargo.toml
 
 # Test the fuzzer project (depends on it being built first)
 test-fuzzer: build-fuzzer
