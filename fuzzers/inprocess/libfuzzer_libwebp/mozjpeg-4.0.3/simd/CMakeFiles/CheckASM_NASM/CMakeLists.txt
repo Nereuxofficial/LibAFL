@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 4.2.3)
+set(CMAKE_MODULE_PATH "")
+set(_CMAKE_CHECK_ENABLED_LANGUAGES "C")
+set(CMAKE_C_COMPILER "/mnt/SSD/RustroverProjects/LibAFL/fuzzers/inprocess/libfuzzer_libwebp/target/release/libafl_cc")
+set(CMAKE_C_COMPILER_ID "Clang")
+set(CMAKE_C_COMPILER_LOADED 1)
+set(CMAKE_C_COMPILER_VERSION "21.1.6")
+
+project(CheckASM_NASM LANGUAGES ASM_NASM)
+file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/result.cmake" "set(CMAKE_ASM_NASM_COMPILER \"${CMAKE_ASM_NASM_COMPILER}\")
+")

@@ -1,0 +1,925 @@
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineSystem.cmake:12 (find_program)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_UNAME"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "uname"
+    candidate_directories:
+      - "/home/bene/.local/bin/"
+      - "/home/bene/.nix-profile/bin/"
+      - "/nix/var/nix/profiles/default/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+      - "/home/bene/.local/share/JetBrains/Toolbox/scripts/"
+      - "/bin/"
+    searched_directories:
+      - "/home/bene/.local/bin/uname"
+      - "/home/bene/.nix-profile/bin/uname"
+      - "/nix/var/nix/profiles/default/bin/uname"
+      - "/usr/local/sbin/uname"
+      - "/usr/local/bin/uname"
+    found: "/usr/bin/uname"
+    search_context:
+      ENV{PATH}:
+        - "/home/bene/.local/bin"
+        - "/home/bene/.nix-profile/bin"
+        - "/nix/var/nix/profiles/default/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineSystem.cmake:212 (message)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      The system is: Linux - 6.18.7-2-cachyos - x86_64
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompiler.cmake:54 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:61 (_cmake_find_compiler)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_ASM_NASM_COMPILER"
+    description: "ASM_NASM compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "nasm"
+      - "yasm"
+    candidate_directories:
+      - "/mnt/SSD/RustroverProjects/LibAFL/fuzzers/inprocess/libfuzzer_libwebp/target/release/"
+    searched_directories:
+      - "/mnt/SSD/RustroverProjects/LibAFL/fuzzers/inprocess/libfuzzer_libwebp/target/release/nasm"
+      - "/mnt/SSD/RustroverProjects/LibAFL/fuzzers/inprocess/libfuzzer_libwebp/target/release/yasm"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/home/bene/.local/bin"
+        - "/home/bene/.nix-profile/bin"
+        - "/nix/var/nix/profiles/default/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is GNU using "--version" did not match "(GNU assembler)|(GCC)|(Free Software Foundation)":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is AppleClang using "--version" did not match "(Apple (clang|LLVM) version)":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is Clang using "--version" did not match "(clang version)":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is ARMClang using "--version" did not match "armclang":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is OrangeC using "--version" did not match "occ \\(OrangeC\\) Version":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is HP using "-V" did not match "HP C":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is Intel using "--version" did not match "(ICC)":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is IntelLLVM using "--version" did not match "(Intel[^
+      ]+oneAPI)":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is SunPro using "-V" did not match "Sun C":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is XL using "-qversion" did not match "XL C":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is MSVC using "-?" did not match "Microsoft.*Macro Assembler":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is TI using "-h" did not match "Texas Instruments":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is TIClang using "--version" did not match "(TI (.*) Clang Compiler)":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is IAR using "" did not match "IAR Assembler":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is Diab using "-V" did not match "Wind River Systems":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is ARMCC using "" did not match "(ARM Compiler)|(ARM Assembler)|(Arm Compiler)":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is NASM using "-v" did not match "(NASM version)":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is YASM using "--version" did not match "(yasm)":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is ADSP using "-version" did not match "Analog Devices":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is QCC using "-V" did not match "gcc_nto":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is Tasking using "--version" did not match "TASKING":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is Renesas using "-v" did not match "(RX Family C/C\\+\\+ Compiler)|(RL78 Family Compiler)|(RH850 Family Compiler)":
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_AR"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ar"
+    candidate_directories:
+      - "/home/bene/.local/bin/"
+      - "/home/bene/.nix-profile/bin/"
+      - "/nix/var/nix/profiles/default/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+      - "/home/bene/.local/share/JetBrains/Toolbox/scripts/"
+    searched_directories:
+      - "/home/bene/.local/bin/ar"
+      - "/home/bene/.nix-profile/bin/ar"
+      - "/nix/var/nix/profiles/default/bin/ar"
+      - "/usr/local/sbin/ar"
+      - "/usr/local/bin/ar"
+    found: "/usr/bin/ar"
+    search_context:
+      ENV{PATH}:
+        - "/home/bene/.local/bin"
+        - "/home/bene/.nix-profile/bin"
+        - "/nix/var/nix/profiles/default/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_RANLIB"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ranlib"
+    candidate_directories:
+      - "/home/bene/.local/bin/"
+      - "/home/bene/.nix-profile/bin/"
+      - "/nix/var/nix/profiles/default/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+      - "/home/bene/.local/share/JetBrains/Toolbox/scripts/"
+    searched_directories:
+      - "/home/bene/.local/bin/ranlib"
+      - "/home/bene/.nix-profile/bin/ranlib"
+      - "/nix/var/nix/profiles/default/bin/ranlib"
+      - "/usr/local/sbin/ranlib"
+      - "/usr/local/bin/ranlib"
+    found: "/usr/bin/ranlib"
+    search_context:
+      ENV{PATH}:
+        - "/home/bene/.local/bin"
+        - "/home/bene/.nix-profile/bin"
+        - "/nix/var/nix/profiles/default/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_STRIP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "strip"
+    candidate_directories:
+      - "/home/bene/.local/bin/"
+      - "/home/bene/.nix-profile/bin/"
+      - "/nix/var/nix/profiles/default/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+      - "/home/bene/.local/share/JetBrains/Toolbox/scripts/"
+    searched_directories:
+      - "/home/bene/.local/bin/strip"
+      - "/home/bene/.nix-profile/bin/strip"
+      - "/nix/var/nix/profiles/default/bin/strip"
+      - "/usr/local/sbin/strip"
+      - "/usr/local/bin/strip"
+    found: "/usr/bin/strip"
+    search_context:
+      ENV{PATH}:
+        - "/home/bene/.local/bin"
+        - "/home/bene/.nix-profile/bin"
+        - "/nix/var/nix/profiles/default/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_LINKER"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ld"
+    candidate_directories:
+      - "/home/bene/.local/bin/"
+      - "/home/bene/.nix-profile/bin/"
+      - "/nix/var/nix/profiles/default/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+      - "/home/bene/.local/share/JetBrains/Toolbox/scripts/"
+    searched_directories:
+      - "/home/bene/.local/bin/ld"
+      - "/home/bene/.nix-profile/bin/ld"
+      - "/nix/var/nix/profiles/default/bin/ld"
+      - "/usr/local/sbin/ld"
+      - "/usr/local/bin/ld"
+    found: "/usr/bin/ld"
+    search_context:
+      ENV{PATH}:
+        - "/home/bene/.local/bin"
+        - "/home/bene/.nix-profile/bin"
+        - "/nix/var/nix/profiles/default/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_NM"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "nm"
+    candidate_directories:
+      - "/home/bene/.local/bin/"
+      - "/home/bene/.nix-profile/bin/"
+      - "/nix/var/nix/profiles/default/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+      - "/home/bene/.local/share/JetBrains/Toolbox/scripts/"
+    searched_directories:
+      - "/home/bene/.local/bin/nm"
+      - "/home/bene/.nix-profile/bin/nm"
+      - "/nix/var/nix/profiles/default/bin/nm"
+      - "/usr/local/sbin/nm"
+      - "/usr/local/bin/nm"
+    found: "/usr/bin/nm"
+    search_context:
+      ENV{PATH}:
+        - "/home/bene/.local/bin"
+        - "/home/bene/.nix-profile/bin"
+        - "/nix/var/nix/profiles/default/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJDUMP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "objdump"
+    candidate_directories:
+      - "/home/bene/.local/bin/"
+      - "/home/bene/.nix-profile/bin/"
+      - "/nix/var/nix/profiles/default/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+      - "/home/bene/.local/share/JetBrains/Toolbox/scripts/"
+    searched_directories:
+      - "/home/bene/.local/bin/objdump"
+      - "/home/bene/.nix-profile/bin/objdump"
+      - "/nix/var/nix/profiles/default/bin/objdump"
+      - "/usr/local/sbin/objdump"
+      - "/usr/local/bin/objdump"
+    found: "/usr/bin/objdump"
+    search_context:
+      ENV{PATH}:
+        - "/home/bene/.local/bin"
+        - "/home/bene/.nix-profile/bin"
+        - "/nix/var/nix/profiles/default/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJCOPY"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "objcopy"
+    candidate_directories:
+      - "/home/bene/.local/bin/"
+      - "/home/bene/.nix-profile/bin/"
+      - "/nix/var/nix/profiles/default/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+      - "/home/bene/.local/share/JetBrains/Toolbox/scripts/"
+    searched_directories:
+      - "/home/bene/.local/bin/objcopy"
+      - "/home/bene/.nix-profile/bin/objcopy"
+      - "/nix/var/nix/profiles/default/bin/objcopy"
+      - "/usr/local/sbin/objcopy"
+      - "/usr/local/bin/objcopy"
+    found: "/usr/bin/objcopy"
+    search_context:
+      ENV{PATH}:
+        - "/home/bene/.local/bin"
+        - "/home/bene/.nix-profile/bin"
+        - "/nix/var/nix/profiles/default/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_READELF"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "readelf"
+    candidate_directories:
+      - "/home/bene/.local/bin/"
+      - "/home/bene/.nix-profile/bin/"
+      - "/nix/var/nix/profiles/default/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+      - "/home/bene/.local/share/JetBrains/Toolbox/scripts/"
+    searched_directories:
+      - "/home/bene/.local/bin/readelf"
+      - "/home/bene/.nix-profile/bin/readelf"
+      - "/nix/var/nix/profiles/default/bin/readelf"
+      - "/usr/local/sbin/readelf"
+      - "/usr/local/bin/readelf"
+    found: "/usr/bin/readelf"
+    search_context:
+      ENV{PATH}:
+        - "/home/bene/.local/bin"
+        - "/home/bene/.nix-profile/bin"
+        - "/nix/var/nix/profiles/default/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_DLLTOOL"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "dlltool"
+    candidate_directories:
+      - "/home/bene/.local/bin/"
+      - "/home/bene/.nix-profile/bin/"
+      - "/nix/var/nix/profiles/default/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+      - "/home/bene/.local/share/JetBrains/Toolbox/scripts/"
+    searched_directories:
+      - "/home/bene/.local/bin/dlltool"
+      - "/home/bene/.nix-profile/bin/dlltool"
+      - "/nix/var/nix/profiles/default/bin/dlltool"
+      - "/usr/local/sbin/dlltool"
+      - "/usr/local/bin/dlltool"
+      - "/usr/bin/dlltool"
+      - "/usr/lib/jvm/default/bin/dlltool"
+      - "/usr/bin/site_perl/dlltool"
+      - "/usr/bin/vendor_perl/dlltool"
+      - "/usr/bin/core_perl/dlltool"
+      - "/usr/lib/rustup/bin/dlltool"
+      - "/home/bene/.local/share/JetBrains/Toolbox/scripts/dlltool"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/home/bene/.local/bin"
+        - "/home/bene/.nix-profile/bin"
+        - "/nix/var/nix/profiles/default/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_ADDR2LINE"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "addr2line"
+    candidate_directories:
+      - "/home/bene/.local/bin/"
+      - "/home/bene/.nix-profile/bin/"
+      - "/nix/var/nix/profiles/default/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+      - "/home/bene/.local/share/JetBrains/Toolbox/scripts/"
+    searched_directories:
+      - "/home/bene/.local/bin/addr2line"
+      - "/home/bene/.nix-profile/bin/addr2line"
+      - "/nix/var/nix/profiles/default/bin/addr2line"
+      - "/usr/local/sbin/addr2line"
+      - "/usr/local/bin/addr2line"
+    found: "/usr/bin/addr2line"
+    search_context:
+      ENV{PATH}:
+        - "/home/bene/.local/bin"
+        - "/home/bene/.nix-profile/bin"
+        - "/nix/var/nix/profiles/default/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/usr/share/cmake/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_TAPI"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "tapi"
+    candidate_directories:
+      - "/home/bene/.local/bin/"
+      - "/home/bene/.nix-profile/bin/"
+      - "/nix/var/nix/profiles/default/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/lib/rustup/bin/"
+      - "/home/bene/.local/share/JetBrains/Toolbox/scripts/"
+    searched_directories:
+      - "/home/bene/.local/bin/tapi"
+      - "/home/bene/.nix-profile/bin/tapi"
+      - "/nix/var/nix/profiles/default/bin/tapi"
+      - "/usr/local/sbin/tapi"
+      - "/usr/local/bin/tapi"
+      - "/usr/bin/tapi"
+      - "/usr/lib/jvm/default/bin/tapi"
+      - "/usr/bin/site_perl/tapi"
+      - "/usr/bin/vendor_perl/tapi"
+      - "/usr/bin/core_perl/tapi"
+      - "/usr/lib/rustup/bin/tapi"
+      - "/home/bene/.local/share/JetBrains/Toolbox/scripts/tapi"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/home/bene/.local/bin"
+        - "/home/bene/.nix-profile/bin"
+        - "/nix/var/nix/profiles/default/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+        - "/usr/lib/rustup/bin"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+        - "/home/bene/.local/share/JetBrains/Toolbox/scripts"
+...

@@ -1,0 +1,1 @@
+/mnt/SSD/RustroverProjects/LibAFL/fuzzers/inprocess/libfuzzer_libwebp/target/release/libafl_cc -O3 -DNDEBUG -Xlinker --dependency-file=CMakeFiles/md5cmp.dir/link.d CMakeFiles/md5cmp.dir/md5cmp.c.o CMakeFiles/md5cmp.dir/md5.c.o CMakeFiles/md5cmp.dir/md5hl.c.o -o md5cmp
