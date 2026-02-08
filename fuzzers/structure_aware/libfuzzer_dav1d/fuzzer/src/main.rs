@@ -201,6 +201,10 @@ where
             concolic_shmem.write_to_env(DEFAULT_ENV_NAME).unwrap();
         }
 
+        // Verify the environment variable was set
+        let shmem_id = env::var(DEFAULT_ENV_NAME).expect("Failed to read shared memory env var");
+        println!("DEBUG: Shared memory ID set to: {}", shmem_id);
+
         // The concolic observer observers the concolic shared memory map.
         let concolic_observer = ConcolicObserver::new("concolic", concolic_shmem.as_slice_mut());
         let concolic_ref = concolic_observer.handle();
@@ -302,12 +306,18 @@ impl CommandConfigurator<Child> for MyCommandConfigurator {
     fn spawn_child(&mut self, target_bytes: OwnedSlice<'_, u8>) -> Result<Child, Error> {
         fs::write("cur_input", target_bytes.as_slice())?;
 
+        // Get the shared memory environment variable
+        let shmem_id = env::var(DEFAULT_ENV_NAME).expect("SHARED_MEMORY_MESSAGES env var not set");
+
+        println!("DEBUG: Spawning symcc target with shmem_id: {}", shmem_id);
+
         Ok(Command::new("./target_symcc.out")
             .arg("cur_input")
             .stdin(Stdio::null())
-            .stdout(Stdio::null())
-            .stderr(Stdio::null())
+            .stdout(Stdio::piped()) // Changed to piped for debugging
+            .stderr(Stdio::piped()) // Changed to piped for debugging
             .env("SYMCC_INPUT_FILE", "cur_input")
+            .env(DEFAULT_ENV_NAME, &shmem_id) // Explicitly pass the shared memory ID
             .spawn()
             .expect("failed to start process"))
     }
