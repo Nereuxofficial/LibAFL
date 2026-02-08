@@ -247,7 +247,7 @@ pub fn main() {
         .and_then(|s| s.parse().ok())
         .unwrap_or(1337);
 
-    let corpus_dirs = [PathBuf::from("../corpus")];
+    let corpus_dirs = [PathBuf::from("./corpus")];
     let objective_dir = PathBuf::from("./crashes");
 
     // 'While the stats are state, they are usually used in the broker - which is likely never restarted
