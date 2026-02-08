@@ -245,6 +245,7 @@ pub fn main() {
         "Workdir: {:?}",
         env::current_dir().unwrap().to_string_lossy().to_string()
     );
+    println!("DEBUG: Concolic mode enabled: {}", opt.concolic);
     io::stdout().flush().unwrap();
     let _port = env::var("BROKER_PORT")
         .ok()
@@ -266,6 +267,8 @@ pub fn main() {
 
     println!("Starting fuzzer with {} cores", num_cores);
 
+    let concolic_mode = opt.concolic; // Copy the bool before moving into closure
+
     #[cfg(feature = "restarting")]
     match Launcher::builder()
         .shmem_provider(StdShMemProvider::new().expect("Failed to init shared memory"))
@@ -273,13 +276,14 @@ pub fn main() {
         .configuration(EventConfig::from_name("default"))
         .monitor(monitor)
         .cores(&_cores)
-        .run_client(|state: Option<FuzzerState>, mgr, _client_desc| {
+        .run_client(move |state: Option<FuzzerState>, mgr, _client_desc| {
+            println!("DEBUG: Client starting with concolic={}", concolic_mode);
             fuzz_task(
                 state,
                 mgr,
                 &corpus_dirs,
                 objective_dir.clone(),
-                opt.concolic,
+                concolic_mode,
             )
         })
         .build()
