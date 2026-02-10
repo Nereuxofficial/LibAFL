@@ -75,16 +75,12 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
     int have_seq_hdr = 0;
     int err;
     int frames_processed = 0;
-    const int MAX_FRAMES = 5; // Reduced from 10 for faster execution
-    const size_t MAX_INPUT_SIZE = 1 * 1024 * 1024; // Reduced to 1MB for faster fuzzing
-    const size_t MIN_INPUT_SIZE = 44; // IVF header + one frame header
+    const int MAX_FRAMES = 10; // Allow more frames for better coverage
+    const size_t MAX_INPUT_SIZE = 5 * 1024 * 1024; // Increase to 5MB
+    const size_t MIN_INPUT_SIZE = 32; // Just IVF header minimum
 
-    // Early exit: reject inputs outside reasonable bounds
+    // Skip overly aggressive validation - let dav1d handle invalid inputs
     if (size < MIN_INPUT_SIZE || size > MAX_INPUT_SIZE)
-        return 0;
-
-    // Early exit: fast validation of IVF structure
-    if (!quick_validate_ivf(data, size))
         return 0;
 
     // Skip IVF header
@@ -133,16 +129,20 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
         if (!have_seq_hdr) {
             Dav1dSequenceHeader seq;
             err = dav1d_parse_sequence_header(&seq, ptr, frame_size);
-            if (err != 0) {
-                // Early exit: abort immediately if first frame lacks valid sequence header
-                goto cleanup;
+            if (err == 0) {
+                have_seq_hdr = 1;
+                
+                // Skip frames that are too large but continue processing
+                if (seq.max_width > 4096 || seq.max_height > 4096 || 
+                    seq.max_width == 0 || seq.max_height == 0) {
+                    ptr += frame_size;
+                    continue;
+                }
             }
-            have_seq_hdr = 1;
-            
-            // Early exit: validate reasonable dimensions to avoid expensive decoding
-            if (seq.max_width > 1920 || seq.max_height > 1080 || 
-                seq.max_width == 0 || seq.max_height == 0) {
-                goto cleanup;
+            // Don't abort - try next frame if this one lacks sequence header
+            if (err != 0) {
+                ptr += frame_size;
+                continue;
             }
         }
 
@@ -154,13 +154,12 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
         memcpy(p, ptr, frame_size);
         ptr += frame_size;
 
-        // Send data with minimal retries
+        // Send data - continue on errors to explore more paths
         err = dav1d_send_data(ctx, &buf);
         if (err < 0 && err != DAV1D_ERR(EAGAIN)) {
-            // Early exit: abort on send errors
             if (buf.sz > 0)
                 dav1d_data_unref(&buf);
-            goto cleanup;
+            continue; // Don't abort - try next frame
         }
 
         // Try to retrieve picture once
@@ -168,21 +167,17 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
         err = dav1d_get_picture(ctx, &pic);
         if (err == 0) {
             dav1d_picture_unref(&pic);
-        } else if (err != DAV1D_ERR(EAGAIN)) {
-            // Early exit: stop on decode errors
-            if (buf.sz > 0)
-                dav1d_data_unref(&buf);
-            goto cleanup;
         }
+        // Continue on errors to explore more code paths
 
         // Clean up remaining buffer data
         if (buf.sz > 0)
             dav1d_data_unref(&buf);
     }
 
-    // Minimal drain - only try a few times
+    // Try to drain remaining pictures
     int drain_attempts = 0;
-    const int MAX_DRAIN_ATTEMPTS = MAX_FRAMES; // Match frame limit
+    const int MAX_DRAIN_ATTEMPTS = MAX_FRAMES * 2; // Allow more drain attempts
     do {
         if (drain_attempts++ >= MAX_DRAIN_ATTEMPTS)
             break;
@@ -190,9 +185,8 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
         err = dav1d_get_picture(ctx, &pic);
         if (err == 0)
             dav1d_picture_unref(&pic);
-        else if (err != DAV1D_ERR(EAGAIN))
-            break; // Stop on errors
-    } while (err != DAV1D_ERR(EAGAIN));
+        // Continue draining even on some errors
+    } while (err == 0 || err == DAV1D_ERR(EAGAIN));
 
 cleanup:
     dav1d_close(&ctx);
